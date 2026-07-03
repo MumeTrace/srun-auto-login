@@ -16,7 +16,7 @@ PASSWORD = "你的密码"
 
 # 校园网认证服务器地址
 # 示例：
-# PORTAL_HOST = "http://10.110.74.91"
+# PORTAL_HOST = "http://10.0.0.1"
 PORTAL_HOST = "http://你的认证服务器地址"
 
 # ac_id 通常来自认证页面地址：
