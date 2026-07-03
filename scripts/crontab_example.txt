@@ -1,0 +1,21 @@
+# 每天 7:00 执行一次
+0 7 * * * /opt/bin/python3 /opt/bin/campus_auto.py >> /opt/campus_auto.log 2>&1
+
+# 每天 7:05 再执行一次，防止学校网络刚开放时不稳定
+5 7 * * * /opt/bin/python3 /opt/bin/campus_auto.py >> /opt/campus_auto.log 2>&1
+
+# 每天 7:10 再执行一次，作为兜底
+10 7 * * * /opt/bin/python3 /opt/bin/campus_auto.py >> /opt/campus_auto.log 2>&1
+
+# 每 10 分钟检查一次外网
+# 如果 ping 不通，就重新执行登录脚本
+*/10 * * * * ping -c 1 223.5.5.5 >/dev/null || /opt/bin/python3 /opt/bin/campus_auto.py >> /opt/campus_auto.log 2>&1
+
+#Padavan中可以这样添加
+cru.sh a campus_7 "0 7 * * * /opt/bin/python3 /opt/bin/campus_auto.py >> /opt/campus_auto.log 2>&1"
+
+cru.sh a campus_705 "5 7 * * * /opt/bin/python3 /opt/bin/campus_auto.py >> /opt/campus_auto.log 2>&1"
+
+cru.sh a campus_710 "10 7 * * * /opt/bin/python3 /opt/bin/campus_auto.py >> /opt/campus_auto.log 2>&1"
+
+cru.sh a campus_check "*/10 * * * * ping -c 1 223.5.5.5 >/dev/null || /opt/bin/python3 /opt/bin/campus_auto.py >> /opt/campus_auto.log 2>&1"
